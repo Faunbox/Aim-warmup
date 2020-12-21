@@ -8,7 +8,7 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  background-color: brown;
+  /* background-color: brown; */
 }
 
 .head {
@@ -20,4 +20,20 @@
 
 .active {
   background-color: red;
+}
+
+section.data {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+button {
+  font-size: 25px;
+  margin: 0 20px 0 20px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
 }
