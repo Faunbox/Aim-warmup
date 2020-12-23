@@ -1,4 +1,6 @@
+import Menu from "./Menu.js";
 import Score from "./Score.js";
+import Buttons from "./Buttons.js";
 
 class Game {
   constructor({ backgroundWrapper, gameWrapper, scoreWrapper, buttonsWraper }) {
@@ -7,6 +9,8 @@ class Game {
     this.buttonsWraper = buttonsWraper;
     this.backgroundWrapper = backgroundWrapper;
     this.scoreClass = new Score();
+    this.menu = new Menu();
+    this.buttons = new Buttons(buttonsWraper);
   }
 
   numbersOfDivs = 290;
@@ -39,26 +43,20 @@ class Game {
       let index = Math.floor(Math.random() * divs.length);
       const div = divs[index];
       div.classList.add("active");
-      setTimeout(() => div.classList.remove("active"), 1500);
-    }, 1000);
+      setTimeout(() => div.classList.remove("active"), this.menu.delayGlowEnds);
+    }, this.menu.delayGlowTime);
   }
 
-  // makeButtons() {
-  //   const resetBtn = document.createElement("button");
-  //   const startBtn = document.createElement("button");
-  //   resetBtn.classList.add("reset");
-  //   startBtn.classList.add("start");
-  //   startBtn.innerHTML = "Start";
-  //   resetBtn.innerHTML = "Reset";
-  //   resetBtn.addEventListener("click", this.scoreClass.resetScore());
-  //   this.buttonsWraper.append(startBtn, resetBtn);
-  // }
-
-  start() {
+  init() {
+    this.menu.show();
     this.buildDivs();
     this.scoreClass.printScore();
+    this.buttons.dziala();
+    document.querySelector(".start").addEventListener("click", this.start());
+  }
+
+  start() {
     this.glowElement();
-    // this.makeButtons();
   }
 }
 
@@ -68,4 +66,4 @@ const game = new Game({
   scoreWrapper: document.querySelector("#score"),
   buttonsWraper: document.querySelector("#buttons"),
 });
-game.start();
+game.init();

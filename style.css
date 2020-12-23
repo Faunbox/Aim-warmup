@@ -1,6 +1,20 @@
+/* body {
+  overflow-y: hidden;
+} */
+
 #AimWarmUp {
   max-width: 1000px;
   margin: 30px auto;
+}
+
+#wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100vh;
 }
 
 #game {
@@ -8,7 +22,7 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  /* background-color: brown; */
+  transition: 1s ease;
 }
 
 .head {
@@ -31,6 +45,7 @@ section.data {
 button {
   font-size: 25px;
   margin: 0 20px 0 20px;
+  cursor: pointer;
 }
 
 .buttons {
