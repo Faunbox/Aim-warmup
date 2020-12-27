@@ -1,19 +1,17 @@
 import Menu from "./Menu.js";
 import Score from "./Score.js";
-import Buttons from "./Buttons.js";
 
-class Game {
+export class Game {
   constructor({ backgroundWrapper, gameWrapper, scoreWrapper, buttonsWraper }) {
     this.gameWrapper = gameWrapper;
     this.scoreWrapper = scoreWrapper;
     this.buttonsWraper = buttonsWraper;
     this.backgroundWrapper = backgroundWrapper;
     this.scoreClass = new Score();
-    this.menu = new Menu();
-    this.buttons = new Buttons(buttonsWraper);
+    this.menu = new Menu(buttonsWraper);
   }
 
-  numbersOfDivs = 290;
+  numbersOfDivs = 190 - 16;
 
   buildDivs() {
     for (let i = 0; i < this.numbersOfDivs; i++) {
@@ -32,31 +30,15 @@ class Game {
         }
         this.scoreClass.printScore();
       });
-
       this.gameWrapper.appendChild(div);
     }
   }
 
-  glowElement() {
-    const divs = document.querySelectorAll(".head");
-    setInterval(() => {
-      let index = Math.floor(Math.random() * divs.length);
-      const div = divs[index];
-      div.classList.add("active");
-      setTimeout(() => div.classList.remove("active"), this.menu.delayGlowEnds);
-    }, this.menu.delayGlowTime);
-  }
-
   init() {
-    this.menu.show();
+    this.menu.showButtonsLevel();
+    this.menu.startButton();
     this.buildDivs();
     this.scoreClass.printScore();
-    this.buttons.dziala();
-    document.querySelector(".start").addEventListener("click", this.start());
-  }
-
-  start() {
-    this.glowElement();
   }
 }
 
