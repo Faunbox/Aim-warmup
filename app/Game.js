@@ -11,7 +11,7 @@ export class Game {
     this.menu = new Menu(buttonsWraper);
   }
 
-  numbersOfDivs = 190 - 16;
+  numbersOfDivs = 190 - 10;
 
   buildDivs() {
     for (let i = 0; i < this.numbersOfDivs; i++) {
