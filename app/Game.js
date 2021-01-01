@@ -13,6 +13,18 @@ export class Game {
 
   numbersOfDivs = 190 - 10;
 
+  reset() {
+    const resetBtn = document.createElement("button");
+    resetBtn.type = "submit";
+    resetBtn.classList.add("reset");
+    resetBtn.textContent = "Wybór poziomu";
+    resetBtn.addEventListener(
+      "click",
+      window.location.reload.bind(window.location)
+    );
+    this.buttonsWraper.appendChild(resetBtn);
+  }
+
   buildDivs() {
     for (let i = 0; i < this.numbersOfDivs; i++) {
       const div = document.createElement("div");
@@ -39,6 +51,7 @@ export class Game {
     this.menu.startButton();
     this.buildDivs();
     this.scoreClass.printScore();
+    this.reset();
   }
 }
 
