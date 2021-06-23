@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aim Warm Up</title>
+    <link rel="stylesheet" href="./Css/style.css" />
+    <script type="module" src="./JS/Game.js" defer></script>
+  </head>
+  <body>
+    <main class="game">
+      <header class="header border border--convex">
+        <article class="header__streak" data-streak>0</article>
+        <button
+          class="header__reset-button border border--concave"
+          data-reset-button
+        >
+          Reset
+        </button>
+        <article class="header__timer" data-timer>0</article>
+      </header>
+      <article class="game__board border border--convex" data-board></article>
+      <nav class="nav border border--convex">
+        <button class="nav__level-button-easy button" data-easy-button>
+          Easy</button
+        ><button class="nav__level-button-normal button" data-normal-button>
+          Normal</button
+        ><button class="nav__level-button-expert button" data-expert-button>
+          Expert
+        </button>
+      </nav>
+      <article class="modal modal--hide">
+        <section class="modal__header">
+          <h2 class="modal__text"></h2>
+          <button class="modal__button button"></button>
+        </section>
+      </article>
+    </main>
+  </body>
+</html>
