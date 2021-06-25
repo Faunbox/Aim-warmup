@@ -26,6 +26,7 @@ class Game extends Ui {
   };
 
   #cells = [];
+  #cellsElement = [];
   #timer = new Timer();
   #streak = new Streak();
 
@@ -83,6 +84,9 @@ class Game extends Ui {
     this.#renderBoard();
     this.#generateTargets();
     this.#timer.startTimer();
+
+    this.#cellsElement = this.getElements(this.UiSelectors.cell);
+    this.#addCellsEventListener();
   }
 
   #getRandomInteger(min, max) {
@@ -105,6 +109,30 @@ class Game extends Ui {
         targetsToGenerate--;
       }
     }
+  }
+  /////////////////////// NIE DZIAŁA !!! \\\\\\\\\\\\\\\\\
+  #handleCellClick(e) {
+    const target = e.target;
+    const rowIndex = parseInt(target.getAttribute("data-x"), 10);
+    const colIndex = parseInt(target.getAttribute("data-y"), 10);
+
+    const cell = this.#cells[rowIndex][colIndex];
+    this.#clickCell(cell);
+  }
+
+  #clickCell(cell) {
+    if (cell.isTarget) {
+      cell.clickOnTarget();
+      this.#streak.increaseStreak();
+    } else {
+      this.#streak.resetStreak();
+    }
+  }
+
+  #addCellsEventListener() {
+    this.#cellsElement.forEach((cell) => {
+      cell.addEventListener("click", this.#handleCellClick);
+    });
   }
 
   init() {

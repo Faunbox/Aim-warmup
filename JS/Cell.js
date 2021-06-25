@@ -18,5 +18,12 @@ export class Cell extends Ui {
 
   addTarget() {
     this.isTarget = true;
+    this.element.classList.add("cell--is-target");
+  }
+
+  clickOnTarget() {
+    if (this.isTarget) {
+      this.element.classList.remove("cell--is-target");
+    }
   }
 }

@@ -7,6 +7,7 @@ export class Ui {
     expertButton: "[data-expert-button]",
     streak: "[data-streak]",
     timer: "[data-timer]",
+    cell: "[data-cell]",
   };
 
   getElement(selector) {
