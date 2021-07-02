@@ -25,5 +25,6 @@ export class Cell extends Ui {
     if (this.isTarget) {
       this.element.classList.remove("cell--is-target");
     }
+    this.isTarget = false;
   }
 }

@@ -9,19 +9,19 @@ class Game extends Ui {
       rows: 8,
       cols: 8,
       targets: 2,
-      vanishTime: 700,
+      vanishTime: 1000,
     },
     normal: {
       rows: 16,
       cols: 16,
       targets: 3,
-      vanishTime: 600,
+      vanishTime: 800,
     },
     expert: {
       rows: 16,
       cols: 30,
       targets: 4,
-      vanishTime: 500,
+      vanishTime: 600,
     },
   };
 
@@ -33,6 +33,7 @@ class Game extends Ui {
   #numberOfRows = null;
   #numberOfCols = null;
   #numberOfTargets = null;
+  #numberOfActiveTargets = null
   #timeToVanish = null;
 
   #board = null;
@@ -82,20 +83,28 @@ class Game extends Ui {
 
     this.#generateCells();
     this.#renderBoard();
-    this.#generateTargets();
+    setInterval(this.#checkNumberOfActiveTargets(), 1000)
     this.#timer.startTimer();
 
     this.#cellsElement = this.getElements(this.UiSelectors.cell);
     this.#addCellsEventListener();
   }
 
+
+  ////////////////nei dziala////////////////
+  #checkNumberOfActiveTargets() {
+    if (this.#numberOfActiveTargets >= 10) return
+    else this.#targetCellsGenerator();
+  }
+
   #getRandomInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  #generateTargets() {
+  #generateTargets = () => {
     let targetsToGenerate = this.#numberOfTargets;
 
+    if (this.#numberOfActiveTargets >= 10) return
     while (targetsToGenerate) {
       const rowIndex = this.#getRandomInteger(0, this.#numberOfRows - 1);
       const colIndex = this.#getRandomInteger(0, this.#numberOfCols - 1);
@@ -103,6 +112,9 @@ class Game extends Ui {
       const cell = this.#cells[rowIndex][colIndex];
 
       const hasCellTarget = cell.isTarget;
+      
+    if (this.#numberOfActiveTargets >= 10) return
+      this.#numberOfActiveTargets++
 
       if (!hasCellTarget) {
         cell.addTarget();
@@ -110,22 +122,29 @@ class Game extends Ui {
       }
     }
   }
-  /////////////////////// NIE DZIAŁA !!! \\\\\\\\\\\\\\\\\
-  #handleCellClick(e) {
+
+  
+
+  #targetCellsGenerator = () => {
+    setInterval(this.#generateTargets, this.#timeToVanish)
+  }
+
+  #handleCellClick = (e) => {
     const target = e.target;
-    const rowIndex = parseInt(target.getAttribute("data-x"), 10);
-    const colIndex = parseInt(target.getAttribute("data-y"), 10);
+    const rowIndex = parseInt(target.getAttribute("data-y"), 10);
+    const colIndex = parseInt(target.getAttribute("data-x"), 10);
 
     const cell = this.#cells[rowIndex][colIndex];
+
     this.#clickCell(cell);
-  }
+  };
 
   #clickCell(cell) {
     if (cell.isTarget) {
       cell.clickOnTarget();
       this.#streak.increaseStreak();
     } else {
-      this.#streak.resetStreak();
+      this.#streak.startCount();
     }
   }
 
