@@ -2,18 +2,40 @@ import { Ui } from "./Ui.js";
 
 export class Timer extends Ui {
   #time = 0;
+  #maxTimeValue = 999;
   #interval = null;
-  #element = this.getElement(this.UiSelectors.timer);
+  #element = null;
 
-  startTimer() {
-    this.#interval = setInterval(() => {
-      if (this.#time < 999) this.#time++;
-      this.#element.textContent = this.#time;
-    }, 1000);
+  timerInit() {
+    this.#element = this.getElement(this.UiSelectors.timer);
+    this.#setTimerElementValue();
+    this.startTimer();
   }
 
-  stopInterval() {
+  startTimer() {
+    this.#interval = setInterval(() => this.#timeUpdate(), 1000);
+  }
+
+  stopTimer() {
     clearInterval(this.#interval);
+  }
+
+  resetTimer() {
     this.#time = 0;
+    this.#setTimerElementValue(this.#time);
+    this.stopTimer();
+    this.startTimer();
+  }
+
+  #setTimerElementValue(time) {
+    this.#element.textContent = time;
+  }
+
+  #timeUpdate() {
+    this.#time++;
+
+    this.#time <= this.#maxTimeValue
+      ? this.#setTimerElementValue(this.#time)
+      : this.stopInterval();
   }
 }

@@ -2,10 +2,10 @@ import { Ui } from "./Ui.js";
 
 export class Streak extends Ui {
   streak = 0;
-  element = this.getElement(this.UiSelectors.streak);
+  #element = this.getElement(this.UiSelectors.streak)
 
   #addStreakValueToElement(streak) {
-    this.element.textContent = streak;
+    this.#element.textContent = streak;
   }
 
   startCount() {
